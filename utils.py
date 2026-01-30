@@ -44,30 +44,18 @@ def exec_command(modified_config):
 
     try:
         print(f"Running command: {' '.join(command)}")
-        # 使用 Popen 启动进程，实时捕获 stdout/stderr
-        with subprocess.Popen(
+        
+        # 将 stdout 和 stderr 直接指向当前的 sys.stdout/stderr
+        # 这样子进程会直接打印到终端，完全保留原始格式、颜色和顺序
+        subprocess.run(
             command,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            bufsize=1,  # 行缓冲模式
-            text=True,   # 输出为字符串而非字节
-            encoding="utf-8",
-            errors="replace"  # 避免编码错误中断
-        ) as proc:
-            # 实时读取标准输出
-            for line in proc.stdout:
-                print(line, end='', flush=True)  # 实时打印
-            # 实时读取错误输出
-            for line in proc.stderr:
-                print(line, end='', flush=True, file=sys.stderr)
-
-        # 等待进程结束并检查返回码
-        if proc.returncode != 0:
-            raise subprocess.CalledProcessError(proc.returncode, command)
-
+            check=True,  # 替代手动检查 returncode 并抛出异常
+            text=True
+        )
+        
     except subprocess.CalledProcessError as e:
-        print(f"Command failed with code {e.returncode}", file=sys.stderr)
+        print(f"\nCommand failed with code {e.returncode}", file=sys.stderr)
     except Exception as e:
-        print(f"Unexpected error: {e}", file=sys.stderr)
+        print(f"\nUnexpected error: {e}", file=sys.stderr)
 
 
