@@ -3,19 +3,7 @@ from ais_bench.benchmark.openicl.icl_retriever import ZeroRetriever
 from ais_bench.benchmark.openicl.icl_inferencer import GenInferencer
 from ais_bench.benchmark.openicl.icl_evaluator import AccEvaluator
 from ais_bench.benchmark.datasets import BoolQDatasetV2
-from ais_bench.benchmark.utils.text_postprocessors import first_capital_postprocess
-
-def bool_q_postprocess(pred: str):
-    processed_pred = first_capital_postprocess(pred)
-    if processed_pred in ["A", "B"]:
-        return processed_pred
-    import re
-    pattern = r'\b(Yes|No)\b'
-    matches = re.findall(pattern, pred)
-    if matches[0] == "Yes":
-        return "A"
-    else:
-        return "B"
+from mindie_ais_bench_backend.utils.text_postprocessors import bool_q_postprocess
       
 BoolQ_reader_cfg = dict(
     input_columns=['question', 'passage'],
