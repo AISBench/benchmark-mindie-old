@@ -8,8 +8,10 @@ def bool_q_postprocess(pred: str):
         return processed_pred
     import re
     pattern = r'\b(Yes|No)\b'
-    matches = re.findall(pattern, pred)
-    if matches[0] == "Yes":
-        return "A"
+    match = re.search(pattern, input_str)
+    
+    # 如果匹配成功，返回匹配到的字符串；否则返回None
+    if match:
+        return match.group(1)
     else:
-        return "B"
+        return "Answer Not Found"
