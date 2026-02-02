@@ -12,6 +12,9 @@ def bool_q_postprocess(pred: str):
     
     # 如果匹配成功，返回匹配到的字符串；否则返回None
     if match:
-        return match.group(1)
+        if match.group(1) == "Yes":
+            return "A"
+        else:
+            return "B"
     else:
         return "Answer Not Found"
