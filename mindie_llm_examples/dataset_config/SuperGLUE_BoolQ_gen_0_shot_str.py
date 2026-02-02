@@ -12,7 +12,7 @@ def bool_q_postprocess(pred: str):
     import re
     pattern = r'\b(Yes|No)\b'
     matches = re.findall(pattern, pred)
-    if matches[0] = "Yes":
+    if matches[0] == "Yes":
         return "A"
     else:
         return "B"
