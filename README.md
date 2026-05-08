@@ -518,7 +518,20 @@ models = [
 ```
 > **注意：**
 > 1. 配置文件中`adapter_id`参数为Multi LoRA场景下，指定使用的lora-id，若为空list使用base模型名称
-> 2. 配置文件中`lora_data_map_file`参数为Multi LoRA场景下，指定lora-id与数据集的映射关系(通过json文件建立映射关系)，json文件的生成和配置参考[LoRA模型与推理数据映射文件](https://www.hiascend.com/document/detail/zh/mindie/21RC1/mindieservice/servicedev/mindie_service0333.html#ZH-CN_TOPIC_0000002400475161__section1755160194019)
+> 2. 配置文件中`lora_data_map_file`参数为Multi LoRA场景下，指定lora-id与数据集的映射关系(通过json文件建立映射关系)，json文件内容格式参考如下样例
+```json
+{
+    "0": "LoraAdapter1",
+    "1": "LoraAdapter2",
+    "6": "LoraAdapter1",
+    "7": "LoraAdapter2",
+    "8": "LoraAdapter1",
+    "9": "LoraAdapter2",
+    "10": "LoraAdapter1",
+    "11": "LoraAdapter1",
+    "13": "LoraAdapter2"
+}
+```
 
 #### 支持Multi LoRA场景的任务
 |任务配置文件|输入格式|流式/文本|
